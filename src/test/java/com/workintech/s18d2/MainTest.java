@@ -1,10 +1,10 @@
 package com.workintech.s18d2;
 
+import com.workintech.s18d2.dao.FruitRepository;
 import com.workintech.s18d2.entity.Fruit;
 import com.workintech.s18d2.entity.FruitType;
 import com.workintech.s18d2.entity.Vegetable;
 import com.workintech.s18d2.exceptions.PlantException;
-import com.workintech.s18d2.repository.FruitRepository;
 import com.workintech.s18d2.services.FruitServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -137,7 +137,7 @@ class MainTest {
     @Test
     @DisplayName("FruitRepository::searchByName should return fruits with matching name")
     void testSearchByName() {
-        List<Fruit> fruits = fruitRepository.searchByName("Apple");
+        List<Fruit> fruits = (List<Fruit>) fruitRepository.searchByName("Apple");
         assertEquals(1, fruits.size());
         assertEquals("Apple", fruits.get(0).getName());
     }
@@ -147,7 +147,7 @@ class MainTest {
     void testGetByIdFoundFruitService() {
         when(mockFruitRepository.findById(anyLong())).thenReturn(Optional.of(sampleFruitForFruitServiceTest));
 
-        Fruit foundFruit = fruitService.getById(1L);
+        Fruit foundFruit = (Fruit) fruitService.getById(1L);
 
         assertNotNull(foundFruit);
         assertEquals(sampleFruitForFruitServiceTest.getName(), foundFruit.getName());
